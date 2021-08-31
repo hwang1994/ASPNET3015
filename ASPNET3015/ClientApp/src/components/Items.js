@@ -6,6 +6,8 @@ import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import { Link } from 'react-router-dom';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
+import { ApplicationPaths, LoginActions, LogoutActions } from './api-authorization/ApiAuthorizationConstants';
+import { Redirect } from 'react-router';
 
 class Items extends Component {
     constructor(props) {
@@ -93,13 +95,13 @@ class Items extends Component {
                 else {
                     this.setState({
                         errorMessage: 'no items found'
-                    })
+                    });
                 }
             })
             .catch((error) => {
                 this.setState({
                     errorMessage: error.toString()
-                })
+                });
             });
     }
 
@@ -117,13 +119,13 @@ class Items extends Component {
                 else {
                     this.setState({
                         recentlyViewedItems: []
-                    })
+                    });
                 }
             })
             .catch((error) => {
                 this.setState({
                     errorMessage: error.toString()
-                })
+                });
             });
     }
 
@@ -145,7 +147,6 @@ class Items extends Component {
                 }
             })
             .catch((error) => {
-                console.log(error.toString());
                 this.setState({
                     pinnedItems: [],
                     errorMessage: null
@@ -170,7 +171,14 @@ class Items extends Component {
             }
         })
         .catch((error) => {
-            this.props.fail(error.toString());
+            if (error.toString() === 'Error: Request failed with status code 401') {
+                this.setState({
+                    errorMessage: error.toString()
+                });
+            }
+            else {
+                this.props.fail(error.toString());
+            }
         });
     }
 
@@ -188,7 +196,14 @@ class Items extends Component {
             }
         })
         .catch((error) => {
-            this.props.fail(error.toString());
+            if (error.toString() === 'Error: Request failed with status code 401') {
+                this.setState({
+                    errorMessage: error.toString()
+                });
+            }
+            else {
+                this.props.fail(error.toString());
+            }
         });
     }
 
@@ -206,7 +221,14 @@ class Items extends Component {
             }
         })
         .catch((error) => {
-            this.props.fail(error.toString());
+            if (error.toString() === 'Error: Request failed with status code 401') {
+                this.setState({
+                    errorMessage: error.toString()
+                });
+            }
+            else {
+                this.props.fail(error.toString());
+            }
         });
     }
 
@@ -241,17 +263,29 @@ class Items extends Component {
                 }
             })
             .catch((error) => {
-                this.props.fail(error.toString());
+                if (error.toString() === 'Error: Request failed with status code 401') {
+                    this.setState({
+                        errorMessage: error.toString()
+                    });
+                }
+                else {
+                    this.props.fail(error.toString());
+                }
             });
     }
 
     render() {
         const url = window.location.href;
-        if (this.state.errorMessage !== null) {
+        if (this.state.errorMessage !== null && this.state.errorMessage !== 'Error: Request failed with status code 401') {
             return (
                 <div className="row">
                     <h1 className="login-panel text-muted">{this.state.errorMessage}</h1>
                 </div>
+            );
+        }
+        else if (this.state.errorMessage === 'Error: Request failed with status code 401') {
+            return (
+                <Redirect to={{ pathname: `${ApplicationPaths.LogOut}`, state: { local: true } }} />
             );
         }
         else {
