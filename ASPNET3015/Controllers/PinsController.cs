@@ -68,34 +68,34 @@ namespace ASPNET3015.Controllers
 
         // PUT: Pins/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        [HttpPut("{id}")]
-        public async Task<IActionResult> PutPin(int id, Pin pin)
-        {
-            if (id != pin.Id)
-            {
-                return BadRequest();
-            }
+        // [HttpPut("{id}")]
+        // public async Task<IActionResult> PutPin(int id, Pin pin)
+        // {
+        //     if (id != pin.Id)
+        //     {
+        //         return BadRequest();
+        //     }
 
-            _context.Entry(pin).State = EntityState.Modified;
+        //     _context.Entry(pin).State = EntityState.Modified;
 
-            try
-            {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!PinExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
+        //     try
+        //     {
+        //         await _context.SaveChangesAsync();
+        //     }
+        //     catch (DbUpdateConcurrencyException)
+        //     {
+        //         if (!PinExists(id))
+        //         {
+        //             return NotFound();
+        //         }
+        //         else
+        //         {
+        //             throw;
+        //         }
+        //     }
 
-            return NoContent();
-        }
+        //     return NoContent();
+        // }
 
         // POST: Pins/:itemId
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
@@ -119,6 +119,7 @@ namespace ASPNET3015.Controllers
         }
 
         // DELETE: Pins/5
+        [Authorize]
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeletePin(int id)
         {
