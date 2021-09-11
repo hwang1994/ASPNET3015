@@ -47,34 +47,34 @@ namespace ASPNET3015.Controllers
 
         // PUT: Downvotes/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        [HttpPut("{id}")]
-        public async Task<IActionResult> PutDownvote(int id, Downvote downvote)
-        {
-            if (id != downvote.Id)
-            {
-                return BadRequest();
-            }
+        // [HttpPut("{id}")]
+        // public async Task<IActionResult> PutDownvote(int id, Downvote downvote)
+        // {
+        //     if (id != downvote.Id)
+        //     {
+        //         return BadRequest();
+        //     }
 
-            _context.Entry(downvote).State = EntityState.Modified;
+        //     _context.Entry(downvote).State = EntityState.Modified;
 
-            try
-            {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!DownvoteExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
+        //     try
+        //     {
+        //         await _context.SaveChangesAsync();
+        //     }
+        //     catch (DbUpdateConcurrencyException)
+        //     {
+        //         if (!DownvoteExists(id))
+        //         {
+        //             return NotFound();
+        //         }
+        //         else
+        //         {
+        //             throw;
+        //         }
+        //     }
 
-            return NoContent();
-        }
+        //     return NoContent();
+        // }
 
         // POST: Downvotes/:itemId
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
@@ -141,20 +141,20 @@ namespace ASPNET3015.Controllers
         }
 
         // DELETE: Downvotes/5
-        [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteDownvote(int id)
-        {
-            var downvote = await _context.Downvote.FindAsync(id);
-            if (downvote == null)
-            {
-                return NotFound();
-            }
+        // [HttpDelete("{id}")]
+        // public async Task<IActionResult> DeleteDownvote(int id)
+        // {
+        //     var downvote = await _context.Downvote.FindAsync(id);
+        //     if (downvote == null)
+        //     {
+        //         return NotFound();
+        //     }
 
-            _context.Downvote.Remove(downvote);
-            await _context.SaveChangesAsync();
+        //     _context.Downvote.Remove(downvote);
+        //     await _context.SaveChangesAsync();
 
-            return NoContent();
-        }
+        //     return NoContent();
+        // }
 
         private bool DownvoteExists(int id)
         {
